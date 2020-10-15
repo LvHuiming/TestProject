@@ -1,0 +1,64 @@
+git init命令把这个目录变成Git可以管理的仓库
+
+git add告诉Git，把文件添加到仓库。
+$ git add readme.txt     
+
+git commit告诉Git，把文件提交到仓库：
+$ git commit -m "wrote a readme file"
+[master (root-commit) eaadf4e] wrote a readme file
+ 1 file changed, 2 insertions(+)
+ create mode 100644 readme.txt
+简单解释一下git commit命令，-m后面输入的是本次提交的说明，可以输入任意内容，当然最好是有意义的，这样你就能从历史记录里方便地找到改动记录。
+
+git status命令可以让我们时刻掌握仓库当前的状态。要随时掌握工作区的状态，使用git status命令。
+$ git status
+
+git diff顾名思义就是查看difference，显示的格式正是Unix通用的diff格式
+如果git status告诉你有文件被修改过，用git diff可以查看修改内容。
+$ git diff readme.txt 
+
+git log命令显示从最近到最远的提交日志，按Q键退出。
+
+git reflog用来记录你的每一次命令，按Q键退出。
+
+git reset 版本退回
+$ git reset --hard HEAD^  退回上一个版本
+上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。 
+git reset --hard commit_id
+退回到制定 commit_id 的版本
+
+git checkout -- file可以丢弃工作区的修改：
+$ git checkout -- readme.txt
+git checkout -- file命令中的--很重要，没有--，就变成了“切换到另一个分支”的命令，我们在后面的分支管理中会再次遇到git checkout命令。
+
+git rm删掉命名
+$ git rm test.txt
+
+要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；
+
+把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。
+关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+
+$ git checkout -b dev 
+git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：
+$ git branch dev          创建分支dev
+$ git checkout dev          切换分支到 dev
+Switched to branch 'dev'
+
+git branch命令查看当前分支：
+
+git merge命令用于合并指定分支到当前分支
+
+$ git branch -d dev    删除dev分支了：
+
+最新版本的Git提供了新的git switch命令来切换分支：
+创建并切换到新的dev分支，可以使用：
+$ git switch -c dev
+直接切换到已有的master分支，可以使用：
+$ git switch master
+使用新的git switch命令，比git checkout要更容易理解。
+
+
+
+
+
