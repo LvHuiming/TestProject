@@ -58,7 +58,34 @@ $ git switch master
 
 $ git merge dev   命令用于合并指定分支到当前分支
 
+$ git stash
+Git还提供了一个stash功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作：
 
+用git stash list命令看看 贮藏仓库列表
+恢复贮藏，有两个办法
+git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；
+另一种方式是用git stash pop，恢复的同时把stash内容也删了
+$ git stash apply stash@{0}   恢复制定的贮藏
 
+遴选: Git专门提供了一个cherry-pick命令，让我们能复制一个特定的提交到当前分支
+$ git cherry-pick 4c805e2
+Git自动给dev分支做了一次提交，注意这次提交的commit是1d4b803，它并不同于master的4c805e2，因为这两个commit只是改动相同，但确实是两个不同的commit。用git cherry-pick，我们就不需要在dev分支上手动再把修bug的过程重复一遍。
 
+因此，多人协作的工作模式通常是这样：
+1. 首先，可以试图用git push origin <branch-name>推送自己的修改；
+2. 如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+3. 如果合并有冲突，则解决冲突，并在本地提交；
+4. 没有冲突或者解决掉冲突后，再用git push origin <branch-name>推送就能成功！
+如果git pull提示no tracking information，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream-to <branch-name> origin/<branch-name>。
+这就是多人协作的工作模式，一旦熟悉了，就非常简单。
+小结
+● 查看远程库信息，使用git remote -v；
+● 本地新建的分支如果不推送到远程，对其他人就是不可见的；
+● 从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+● 在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+● 建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+● 从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
 
+$ git rebase
+rebase操作可以把本地未push的分叉提交历史整理成直线；
+rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
