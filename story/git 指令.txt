@@ -47,8 +47,6 @@ Switched to branch 'dev'
 
 git branch命令查看当前分支：
 
-git merge命令用于合并指定分支到当前分支
-
 $ git branch -d dev    删除dev分支了：
 
 最新版本的Git提供了新的git switch命令来切换分支：
@@ -57,6 +55,8 @@ $ git switch -c dev
 直接切换到已有的master分支，可以使用：
 $ git switch master
 使用新的git switch命令，比git checkout要更容易理解。
+
+$ git merge dev   命令用于合并指定分支到当前分支
 
 
 
